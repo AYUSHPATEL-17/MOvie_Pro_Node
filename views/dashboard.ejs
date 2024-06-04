@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Prime Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        /* Custom scrollbar styles */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .swiper-container {
+            height: calc(100vh - 4rem);
+            /* Adjust as per your sidebar height */
+            overflow: hidden;
+            /* Ensure the slider does not overflow and cause scrolling */
+            border-radius: 15px;
+            /* Add border radius */
+            padding: 1rem;
+            /* Add padding */
+            background-color: #fff;
+            /* Background color */
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            /* Add border radius to the images */
+        }
+
+        .swiper-pagination {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            /* Dot color */
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .swiper-pagination {
+            position: absolute;
+            top: 1rem;
+            /* Adjust top positioning as needed */
+            left: 50% !important;
+            top: 90% !important;
+            transform: translateX(-50%);
+            width: auto;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+            /* Ensure pagination dots are above slider images */
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #fff;
+            /* Active dot color */
+        }
+
+        .bg-grad {
+            background: rgb(2, 0, 36);
+            background: linear-gradient(270deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+            color: #fff;
+        }
+        .bg-grad2{
+            background: rgb(131,58,180);
+background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+        }
+        .css-selector {
+    background: linear-gradient(228deg, #ff0c0c, #fb4426, #f99017, #f5ac57, #f2c026, #a7f739, #5bff10, #73e43f, #71e47b, #9db6a2, #70ece2, #45d8f9, #1ecff7, #0562ff, #0b05ff, #6e05ff, #802cf3, #934df2, #fa7afb, #f0bae9, #a86ea1, #b270d7, #d948d4, #f335a1, #b90d48, #df004c, #ff0000, #453131, #000000);
+    background-size: 5800% 5800%;
+
+    -webkit-animation: AnimationName 21s ease infinite;
+    -moz-animation: AnimationName 21s ease infinite;
+    animation: AnimationName 21s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+    <!-- Sidebar -->
+    <aside class="fixed top-0 left-0 h-full w-64 bg-black p-2 text-white">
+        <div class="flex items-center space-x-4 mb-1">
+            <img src="/uploads/img/net_logo.png" alt="V4Movies Logo" class="w-50">
+
+        </div>
+        <nav>
+            <ul class="space-y-4 text-center">
+                <li><a href="#" class="hover:text-red-700 block text-xl">Home</a></li>
+
+                <!-- <li><a href="#" class="hover:text-blue-400 block">TV Shows</a></li> -->
+                <li><a href="/add_movie" class="hover:text-red-700 block text-xl">Movies</a></li>
+                <!-- <li><a href="#" class="hover:text-blue-400 block">Latest</a></li>
+                <li><a href="#" class="hover:text-blue-400 block">Store</a></li> -->
+            </ul>
+        </nav>
+        <div class="mt-3 space-y-4  text-center">
+            <a href="#" class="hover:text-red-700 block text-xl">Sports</a>
+            <a href="#" class="hover:text-red-700 block text-xl">Tv Show</a>
+            <a href="#" class="hover:text-red-700 block text-xl">Kids</a>
+
+
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 bg-gray">
+        <!-- Hero Section -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <% moviesData.map((movie)=>{ %>
+                    <div class="swiper-slide">
+                        <img src="<%= movie.image %>" alt="<%= movie.movie_name %>">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent">
+                        </div>
+                        <div class="absolute bottom-0 p-8 space-y-4">
+                            <h1 class="text-6xl font-bold text-white">
+                                <%= movie.movie_name %>
+                            </h1>
+                            <p class="max-w-xl text-white">
+                                <%= movie.movie_disc %>
+                            </p>
+                            <div class="space-x-2">
+                                <button class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Play</button>
+                                <button
+                                    class="px-4 py-2 bg-white bg-opacity-50 text-blue-900 font-semibold rounded">More
+                                    Info</button>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div> <!-- This should show the pagination dots -->
+        </div>
+
+        <!-- Movie Grid -->
+        <section class="p-8" id="#move">
+            <h2 class="text-2xl font-semibold mb-4">Popular on V4Movies</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <% moviesData.map((movie)=>{ %>
+                    <!-- Example movie item -->
+                    <div class="relative overflow-hidden rounded-lg shadow-lg bg-white">
+                        <img src="<%= movie.image %>" alt="Movie" class="w-full h-64 object-cover object-center">
+                        <div class="p-4">
+                            <h1 class="font-semibold text-lg truncate mb-2">
+                                <%= movie.movie_name %>
+                            </h1>
+                            <p class="text-sm text-gray-500 mb-2">
+                                <%= movie.movie_ratings %> / 10
+                            </p>
+                            <p class="text-sm text-gray-700 mb-4">
+                                <%= movie.movie_disc %>
+                            </p>
+                            <div class="flex justify-between">
+                                <a href="/update_Movie?id=<%= movie._id %>"
+                                    class="px-4 py-2  font-semibold rounded bg-grad">Edit</a>
+                                <a href="/deleteMovie?id=<%= movie._id %>"
+                                    class="px-4 py-2 bg-red-600 text-white font-semibold  rounded">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+        body {
+            background-color: #232f3e; /* Dark grayish-blue background */
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .form-container {
+            background-color: #436996;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #d1dee2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            color: #fff;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #192734;
+            color: #fff;
+            border: 1px solid #3b5269;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #00a8e1;
+            box-shadow: 0 0 0 0.2rem rgba(0, 168, 225, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #00a8e1;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0079a3;
+        }
+
+        .btn-primary:active {
+            background-color: #005d80;
+        }
+        .bg-grad2{
+            background: rgb(131,58,180);
+background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+        }
+        .bg-grad {
+            background: rgb(2, 0, 36);
+            background: linear-gradient(270deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+            color: #fff;
+        }
+        .bg-grad3{
+            background: rgb(63,94,251);
+background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+        }
+        .css-selector {
+    background: linear-gradient(228deg, #ff0c0c, #fb4426, #f99017, #f5ac57, #f2c026, #a7f739, #5bff10, #73e43f, #71e47b, #9db6a2, #70ece2, #45d8f9, #1ecff7, #0562ff, #0b05ff, #6e05ff, #802cf3, #934df2, #fa7afb, #f0bae9, #a86ea1, #b270d7, #d948d4, #f335a1, #b90d48, #df004c, #ff0000, #453131, #000000);
+    background-size: 5800% 5800%;
+
+    -webkit-animation: AnimationName 21s ease infinite;
+    -moz-animation: AnimationName 21s ease infinite;
+    animation: AnimationName 21s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+    </style>
+</head>
+
+<body class="container css-selector" data-bs-theme="dark" >
+    <div class="row justify-content-center  mt-2">
+        <div class="col-6">
+           
+            <div class="form-container bg-grad">
+                <form action="/updateMovie" method="post" enctype="multipart/form-data">
+                    <h2 class="text-center">Update Movie</h2>
+                    <div class="mb-2">
+                        <label for="movie_name" class="form-label">Movie Name:</label>
+                        <input type="text" class="form-control" id="movie_name" name="movie_name"
+                            value="<%= data.movie_name %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="movie_disc" class="form-label">Movie Description:</label>
+                        <textarea class="form-control" id="movie_disc" name="movie_disc"
+                            required><%= data.movie_disc %></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Poster:</label>
+                        <input type="file" class="form-control" id="image" name="image" value="<%= data.image %>"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="movie_ratings" class="form-label">Choose rating:</label>
+                        <select class="form-select" aria-label="Default select example" name="movie_ratings"
+                            id="movie_ratings">
+                            <option value="" <%=!data.movie_ratings ? 'selected' : '' %>>select stars</option>
+                            <option value="⭐" <%=data.movie_ratings==='⭐' ? 'selected' : '' %>>⭐</option>
+                            <option value="⭐⭐" <%=data.movie_ratings==='⭐⭐' ? 'selected' : '' %>>⭐⭐</option>
+                            <option value="⭐⭐⭐" <%=data.movie_ratings==='⭐⭐⭐' ? 'selected' : '' %>>⭐⭐⭐</option>
+                            <option value="⭐⭐⭐⭐" <%=data.movie_ratings==='⭐⭐⭐⭐' ? 'selected' : '' %>>⭐⭐⭐⭐</option>
+                            <option value="⭐⭐⭐⭐⭐" <%=data.movie_ratings==='⭐⭐⭐⭐⭐' ? 'selected' : '' %>>⭐⭐⭐⭐⭐</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid">
+                        <input type="submit" class="btn bg-grad3" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
